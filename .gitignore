@@ -1,0 +1,19 @@
+# .gitignore
+
+# Archive folders
+/archived_reports/
+/archived_files/
+/archived_logs/
+
+# Download folder
+/downloaded_files/
+
+# Recording folder
+/recordings/
+
+# Latest logs and report
+/latest_logs/
+/latest_report/
+
+# Python cache files
+__pycache__/
