@@ -15,7 +15,16 @@ def sort_csv_by_citation_count(filename):
     # write the sorted data back to the csv file
     sorted_data.to_csv(filename, index=False)
 
+def render_csv_to_markdown_table(filename, output_filename):
+    # read the data from the csv file
+    data = pd.read_csv(filename)
 
+    # convert the DataFrame to markdown
+    markdown_table = data.to_markdown(index=False)
+
+    # write the markdown table to the output file
+    with open(output_filename, 'w') as f:
+        f.write(markdown_table)
 
 class RecorderTest(BaseCase):
     def test_recording(self):
@@ -74,7 +83,7 @@ class RecorderTest(BaseCase):
                     if metric in headers:
                         metrics[metric] = value
                     else:
-                        # print(f"Unexpected metric '{metric}' is ignored.")
+                        print(f"Dropped.")
 
                 # write data to csv
                 writer.writerow({"Conference Name": conference_name, "Conference Url": conference, **metrics})
@@ -83,3 +92,4 @@ class RecorderTest(BaseCase):
 if __name__ == "__main__":
     BaseCase.main(__name__, __file__,"--block-images","--headless2")
     sort_csv_by_citation_count('acm_metrics.csv')
+    render_csv_to_markdown_table('acm_metrics.csv', 'README.md')
